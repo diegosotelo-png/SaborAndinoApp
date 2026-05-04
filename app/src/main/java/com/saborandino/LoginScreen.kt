@@ -3,11 +3,11 @@ package com.saborandino
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
@@ -20,8 +20,10 @@ fun LoginScreen(navController: NavHostController) {
         modifier = Modifier
             .fillMaxSize()
             .padding(20.dp),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Text(
             text = "Sabor Andino",
             style = MaterialTheme.typography.headlineLarge,
@@ -29,43 +31,73 @@ fun LoginScreen(navController: NavHostController) {
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Text(
+            text = "Iniciar sesión",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.height(30.dp))
 
         OutlinedTextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = {
+                email = it
+                error = ""
+            },
             label = { Text("Correo") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         OutlinedTextField(
             value = password,
-            onValueChange = { password = it },
+            onValueChange = {
+                password = it
+                error = ""
+            },
             label = { Text("Contraseña") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(25.dp))
 
         Button(
             onClick = {
-                if (email.isEmpty() || password.isEmpty()) {
-                    error = "Completa los campos"
-                } else {
-                    error = ""
-                    navController.navigate("home")
+
+                when {
+                    email.isBlank() || password.isBlank() -> {
+                        error = "Completa todos los campos"
+                    }
+                    !email.contains("@") -> {
+                        error = "Correo inválido"
+                    }
+                    else -> {
+                        error = ""
+                        navController.navigate("home")
+                    }
                 }
+
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(55.dp)
         ) {
             Text("Ingresar")
         }
 
         if (error.isNotEmpty()) {
             Spacer(modifier = Modifier.height(10.dp))
-            Text(error, color = MaterialTheme.colorScheme.error)
+            Text(
+                text = error,
+                color = MaterialTheme.colorScheme.error
+            )
         }
     }
 }

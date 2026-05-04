@@ -1,11 +1,10 @@
 package com.saborandino
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavType
+import androidx.compose.material3.Text
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
@@ -25,32 +24,24 @@ fun AppNavigation(navController: NavHostController) {
             HomeScreen(navController)
         }
 
-        // MENU (lo hará tu compañero)
-        composable("menu") {
-            // MenuScreen(navController)
-        }
-
-        // PERFIL (lo harás luego)
+        // PERFIL / PEDIDO
         composable("perfil") {
-            // PerfilScreen(navController)
+            PerfilScreen(navController)
         }
 
-        // PEDIDO
+        // MENU (compañero)
+        composable("menu") {
+            Text("Pantalla Menú en desarrollo")
+        }
+
+        // PEDIDO (por si lo llamas separado)
         composable("pedido") {
-            // PedidoScreen(navController)
+            Text("Pantalla Pedido en desarrollo")
         }
 
-        // DETALLE CON ID (IMPORTANTE PARA EL PROFE)
-        composable(
-            route = "detalle/{id}",
-            arguments = listOf(
-                navArgument("id") { type = NavType.IntType }
-            )
-        ) { backStackEntry ->
-
-            val id = backStackEntry.arguments?.getInt("id") ?: 0
-
-            // DetalleScreen(id, navController)
+        // DETALLE (placeholder)
+        composable("detalle/{id}") {
+            Text("Detalle en desarrollo")
         }
     }
 }
