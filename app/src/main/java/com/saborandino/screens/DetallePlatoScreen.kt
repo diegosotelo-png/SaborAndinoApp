@@ -13,6 +13,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.saborandino.data.listaPlatos
+import com.saborandino.data.agregarAlPedido
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -137,6 +139,7 @@ fun DetallePlatoScreen(navController: NavController, platoId: Int) {
 
                 Button(
                     onClick = {
+                        agregarAlPedido(plato, cantidad)
                         navController.navigate("perfil")
                     },
                     modifier = Modifier

@@ -10,6 +10,7 @@ import com.saborandino.screens.LoginScreen
 import com.saborandino.screens.PerfilScreen
 import com.saborandino.screens.MenuScreen
 import com.saborandino.screens.DetallePlatoScreen
+import com.saborandino.screens.PedidoScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
@@ -41,7 +42,7 @@ fun AppNavigation(navController: NavHostController) {
 
         // PEDIDO (por si lo llamas separado)
         composable("pedido") {
-            Text("Pantalla Pedido en desarrollo")
+            PedidoScreen(navController)
         }
 
         composable("detalle/{id}") { backStackEntry ->

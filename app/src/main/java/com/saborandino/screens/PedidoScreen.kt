@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,17 +15,20 @@ import com.saborandino.data.listaPedido
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PerfilScreen(navController: NavHostController) {
+fun PedidoScreen(navController: NavHostController) {
 
     val total = calcularTotalPedido()
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Mi Perfil y Pedido") },
+                title = { Text("Mi Pedido") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Volver")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Volver"
+                        )
                     }
                 }
             )
@@ -41,26 +44,8 @@ fun PerfilScreen(navController: NavHostController) {
         ) {
 
             item {
-                Card(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(modifier = Modifier.padding(20.dp)) {
-                        Text(
-                            text = "Datos del cliente",
-                            style = MaterialTheme.typography.titleMedium
-                        )
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        Text("Nombre: Diego")
-                        Text("Correo: diego@email.com")
-                    }
-                }
-            }
-
-            item {
                 Text(
-                    text = "🛒 Mi Pedido",
+                    text = "Platos agregados",
                     style = MaterialTheme.typography.titleLarge
                 )
             }
@@ -71,7 +56,7 @@ fun PerfilScreen(navController: NavHostController) {
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(modifier = Modifier.padding(20.dp)) {
-                            Text("No hay productos agregados todavía.")
+                            Text("No hay platos agregados todavía.")
                         }
                     }
                 }
@@ -105,7 +90,8 @@ fun PerfilScreen(navController: NavHostController) {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(modifier = Modifier.padding(20.dp)) {
-                        Divider()
+
+                        HorizontalDivider()
 
                         Spacer(modifier = Modifier.height(10.dp))
 
