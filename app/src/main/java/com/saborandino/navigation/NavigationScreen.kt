@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.saborandino.screens.HomeScreen
 import com.saborandino.screens.LoginScreen
 import com.saborandino.screens.PerfilScreen
+import com.saborandino.screens.MenuScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
@@ -34,7 +35,7 @@ fun AppNavigation(navController: NavHostController) {
 
         // MENU (compañero)
         composable("menu") {
-            Text("Pantalla Menú en desarrollo")
+            MenuScreen(navController)
         }
 
         // PEDIDO (por si lo llamas separado)
