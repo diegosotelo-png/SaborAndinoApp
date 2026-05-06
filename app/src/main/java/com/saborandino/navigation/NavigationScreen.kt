@@ -9,6 +9,7 @@ import com.saborandino.screens.HomeScreen
 import com.saborandino.screens.LoginScreen
 import com.saborandino.screens.PerfilScreen
 import com.saborandino.screens.MenuScreen
+import com.saborandino.screens.DetallePlatoScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
@@ -43,9 +44,13 @@ fun AppNavigation(navController: NavHostController) {
             Text("Pantalla Pedido en desarrollo")
         }
 
-        // DETALLE (placeholder)
-        composable("detalle/{id}") {
-            Text("Detalle en desarrollo")
+        composable("detalle/{id}") { backStackEntry ->
+
+            val id = backStackEntry.arguments
+                ?.getString("id")
+                ?.toIntOrNull() ?: 0
+
+            DetallePlatoScreen(navController, id)
         }
     }
 }
