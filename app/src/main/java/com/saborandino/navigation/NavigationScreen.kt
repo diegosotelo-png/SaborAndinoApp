@@ -1,10 +1,13 @@
-package com.saborandino
+package com.saborandino.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Text
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.saborandino.screens.HomeScreen
+import com.saborandino.screens.LoginScreen
+import com.saborandino.screens.PerfilScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController) {

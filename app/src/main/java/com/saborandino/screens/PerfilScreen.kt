@@ -1,4 +1,4 @@
-package com.saborandino
+package com.saborandino.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
