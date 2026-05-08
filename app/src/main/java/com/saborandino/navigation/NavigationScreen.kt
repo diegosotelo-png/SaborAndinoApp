@@ -1,51 +1,45 @@
 package com.saborandino.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.material3.Text
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.saborandino.screens.DetallePlatoScreen
 import com.saborandino.screens.HomeScreen
 import com.saborandino.screens.LoginScreen
-import com.saborandino.screens.PerfilScreen
 import com.saborandino.screens.MenuScreen
-import com.saborandino.screens.DetallePlatoScreen
 import com.saborandino.screens.PedidoScreen
+import com.saborandino.screens.PerfilScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
 
     NavHost(
         navController = navController,
-        startDestination = "login"
+        startDestination = Screen.Login.route
     ) {
 
-        // LOGIN
-        composable("login") {
+        composable(Screen.Login.route) {
             LoginScreen(navController)
         }
 
-        // HOME
-        composable("home") {
+        composable(Screen.Home.route) {
             HomeScreen(navController)
         }
 
-        // PERFIL / PEDIDO
-        composable("perfil") {
+        composable(Screen.Perfil.route) {
             PerfilScreen(navController)
         }
 
-        // MENU (compañero)
-        composable("menu") {
+        composable(Screen.Menu.route) {
             MenuScreen(navController)
         }
 
-        // PEDIDO (por si lo llamas separado)
-        composable("pedido") {
+        composable(Screen.Pedido.route) {
             PedidoScreen(navController)
         }
 
-        composable("detalle/{id}") { backStackEntry ->
+        composable(Screen.DetallePlato.route) { backStackEntry ->
 
             val id = backStackEntry.arguments
                 ?.getString("id")
