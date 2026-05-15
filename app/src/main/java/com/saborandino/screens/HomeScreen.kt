@@ -8,6 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.foundation.shape.RoundedCornerShape
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
@@ -71,14 +73,42 @@ fun DashboardCard(
     description: String,
     onClick: () -> Unit
 ) {
-    Card(
+    ElevatedCard(
         onClick = onClick,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(24.dp),
+        elevation = CardDefaults.elevatedCardElevation(
+            defaultElevation = 5.dp
+        )
     ) {
-        Column(modifier = Modifier.padding(20.dp)) {
-            Text(title, style = MaterialTheme.typography.titleMedium)
-            Spacer(modifier = Modifier.height(5.dp))
-            Text(description, style = MaterialTheme.typography.bodyMedium)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Spacer(modifier = Modifier.height(5.dp))
+
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            Text(
+                text = "›",
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.primary
+            )
         }
     }
 }

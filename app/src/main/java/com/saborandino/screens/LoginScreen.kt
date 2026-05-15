@@ -1,10 +1,13 @@
 package com.saborandino.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -27,6 +30,7 @@ fun LoginScreen(navController: NavHostController) {
         Text(
             text = "Sabor Andino",
             style = MaterialTheme.typography.headlineLarge,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )
@@ -50,7 +54,8 @@ fun LoginScreen(navController: NavHostController) {
             },
             label = { Text("Correo") },
             modifier = Modifier.fillMaxWidth(),
-            singleLine = true
+            singleLine = true,
+            shape = RoundedCornerShape(14.dp)
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -63,31 +68,34 @@ fun LoginScreen(navController: NavHostController) {
             },
             label = { Text("Contraseña") },
             modifier = Modifier.fillMaxWidth(),
-            singleLine = true
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            shape = RoundedCornerShape(14.dp)
         )
 
         Spacer(modifier = Modifier.height(25.dp))
 
         Button(
             onClick = {
-
                 when {
                     email.isBlank() || password.isBlank() -> {
                         error = "Completa todos los campos"
                     }
+
                     !email.contains("@") -> {
                         error = "Correo inválido"
                     }
+
                     else -> {
                         error = ""
                         navController.navigate("home")
                     }
                 }
-
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(55.dp)
+                .height(55.dp),
+            shape = RoundedCornerShape(14.dp)
         ) {
             Text("Ingresar")
         }

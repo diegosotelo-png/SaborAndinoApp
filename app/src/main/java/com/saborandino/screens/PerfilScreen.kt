@@ -1,13 +1,33 @@
 package com.saborandino.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.saborandino.data.calcularTotalPedido
@@ -25,7 +45,10 @@ fun PerfilScreen(navController: NavHostController) {
                 title = { Text("Mi Perfil y Pedido") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Volver")
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Volver"
+                        )
                     }
                 }
             )
@@ -41,19 +64,48 @@ fun PerfilScreen(navController: NavHostController) {
         ) {
 
             item {
-                Card(
-                    modifier = Modifier.fillMaxWidth()
+                ElevatedCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(24.dp),
+                    elevation = CardDefaults.elevatedCardElevation(
+                        defaultElevation = 6.dp
+                    )
                 ) {
-                    Column(modifier = Modifier.padding(20.dp)) {
+                    Column(
+                        modifier = Modifier.padding(20.dp)
+                    ) {
                         Text(
                             text = "Datos del cliente",
-                            style = MaterialTheme.typography.titleMedium
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Spacer(modifier = Modifier.height(14.dp))
+
+                        Text(
+                            text = "Nombre",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+
+                        Text(
+                            text = "Diego",
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = FontWeight.Bold
                         )
 
                         Spacer(modifier = Modifier.height(10.dp))
 
-                        Text("Nombre: Diego")
-                        Text("Correo: diego@email.com")
+                        Text(
+                            text = "Correo",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+
+                        Text(
+                            text = "diego@gmail.com",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     }
                 }
             }
@@ -61,17 +113,43 @@ fun PerfilScreen(navController: NavHostController) {
             item {
                 Text(
                     text = "🛒 Mi Pedido",
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
                 )
             }
 
             if (listaPedido.isEmpty()) {
                 item {
-                    Card(
-                        modifier = Modifier.fillMaxWidth()
+                    OutlinedCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(24.dp)
                     ) {
-                        Column(modifier = Modifier.padding(20.dp)) {
-                            Text("No hay productos agregados todavía.")
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(24.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "🛒",
+                                style = MaterialTheme.typography.headlineLarge
+                            )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            Text(
+                                text = "Tu pedido está vacío",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold
+                            )
+
+                            Spacer(modifier = Modifier.height(4.dp))
+
+                            Text(
+                                text = "Agrega platos desde el menú para verlos aquí.",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
                         }
                     }
                 }
@@ -80,39 +158,81 @@ fun PerfilScreen(navController: NavHostController) {
 
                     val subtotal = itemPedido.plato.precio * itemPedido.cantidad
 
-                    Card(
-                        modifier = Modifier.fillMaxWidth()
+                    OutlinedCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp)
                     ) {
-                        Column(modifier = Modifier.padding(16.dp)) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Text(
+                                    text = itemPedido.plato.nombre,
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.Bold
+                                )
+
+                                Spacer(modifier = Modifier.height(4.dp))
+
+                                Text(
+                                    text = "${itemPedido.cantidad} x S/ %.2f".format(itemPedido.plato.precio),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
 
                             Text(
-                                text = itemPedido.plato.nombre,
-                                style = MaterialTheme.typography.titleMedium
+                                text = "S/ %.2f".format(subtotal),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.primary
                             )
-
-                            Spacer(modifier = Modifier.height(6.dp))
-
-                            Text("Cantidad: ${itemPedido.cantidad}")
-                            Text("Precio unitario: S/ %.2f".format(itemPedido.plato.precio))
-                            Text("Subtotal: S/ %.2f".format(subtotal))
                         }
                     }
                 }
             }
 
             item {
-                Card(
-                    modifier = Modifier.fillMaxWidth()
+                ElevatedCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(24.dp),
+                    colors = CardDefaults.elevatedCardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                    ),
+                    elevation = CardDefaults.elevatedCardElevation(
+                        defaultElevation = 6.dp
+                    )
                 ) {
-                    Column(modifier = Modifier.padding(20.dp)) {
-                        Divider()
+                    Column(
+                        modifier = Modifier.padding(20.dp)
+                    ) {
+                        HorizontalDivider()
 
                         Spacer(modifier = Modifier.height(10.dp))
 
-                        Text(
-                            text = "Total: S/ %.2f".format(total),
-                            style = MaterialTheme.typography.titleLarge
-                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "Total",
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold
+                            )
+
+                            Text(
+                                text = "S/ %.2f".format(total),
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
                     }
                 }
             }
